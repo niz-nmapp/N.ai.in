@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>n.ai.in - Your AI-Powered Search Engine</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a73e8;
+            --secondary: #34a853;
+            --accent: #fbbc05;
+            --danger: #ea4335;
+            --dark: #202124;
+            --light-gray: #f8f9fa;
+            --medium-gray: #dadce0;
+            --border: #dfe1e5;
+            --card-shadow: 0 1px 6px rgba(32, 33, 36, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #fff;
+            color: var(--dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        header {
+            padding: 15px 25px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-link {
+            font-size: 14px;
+            color: rgba(0, 0, 0, 0.87);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+
+        .apps-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .apps-icon:hover {
+            background-color: rgba(60, 64, 67, 0.08);
+        }
+
+        .login-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 9px 24px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .login-btn:hover {
+            background-color: #1b66c9;
+            box-shadow: 0 1px 3px rgba(66, 133, 244, 0.3);
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 5.5rem;
+            font-weight: 700;
+            margin: 70px 0 40px;
+            color: var(--primary);
+            position: relative;
+        }
+
+        .logo .ai {
+            color: var(--secondary);
+        }
+
+        .logo .in {
+            color: var(--danger);
+        }
+
+        .logo::after {
+            content: "AI";
+            position: absolute;
+            top: -10px;
+            right: -35px;
+            font-size: 1.2rem;
+            background: var(--accent);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-weight: 700;
+        }
+
+        /* Search Container */
+        .search-container {
+            width: 100%;
+            max-width: 700px;
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .search-box {
+            width: 100%;
+            height: 52px;
+            border-radius: 28px;
+            border: 1px solid var(--border);
+            padding: 0 60px;
+            font-size: 16px;
+            outline: none;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+        }
+
+        .search-box:focus {
+            box-shadow: 0 1px 10px rgba(26, 115, 232, 0.2);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 22px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9aa0a6;
+            font-size: 18px;
+        }
+
+        .mic-icon, .camera-icon {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .mic-icon {
+            right: 50px;
+        }
+
+        .camera-icon {
+            right: 20px;
+        }
+
+        /* Buttons */
+        .search-buttons {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .search-btn {
+            background-color: var(--light-gray);
+            border: 1px solid transparent;
+            border-radius: 6px;
+            color: var(--dark);
+            font-size: 14px;
+            padding: 12px 24px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .search-btn:hover {
+            border: 1px solid var(--medium-gray);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            background-color: #f0f0f0;
+        }
+
+        /* Features */
+        .features-container {
+            width: 100%;
+            max-width: 800px;
+            margin-top: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 14px;
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), #4285f4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: white;
+            font-size: 28px;
+        }
+
+        .feature-card:nth-child(2) .feature-icon {
+            background: linear-gradient(135deg, var(--secondary), #0f9d58);
+        }
+
+        .feature-card:nth-child(3) .feature-icon {
+            background: linear-gradient(135deg, var(--accent), #f57c00);
+        }
+
+        .feature-card:nth-child(4) .feature-icon {
+            background: linear-gradient(135deg, var(--danger), #d93025);
+        }
+
+        .feature-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--dark);
+        }
+
+        .feature-desc {
+            color: #5f6368;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        /* Language Selector */
+        .language-container {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .language-title {
+            font-size: 15px;
+            color: #5f6368;
+            margin-bottom: 15px;
+        }
+
+        .language-items {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            max-width: 600px;
+        }
+
+        .language-item {
+            color: var(--primary);
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .language-item:hover {
+            text-decoration: underline;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+            color: #5f6368;
+            cursor: pointer;
+            transition: color 0.2s ease;
+            min-width: 60px;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+        }
+
+        .nav-icon {
+            font-size: 22px;
+        }
+
+        /* Login Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 450px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            padding: 20px;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: var(--dark);
+            font-weight: 500;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid var(--medium-gray);
+            border-radius: 6px;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .input-group input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
+        }
+
+        .login-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .btn {
+            padding: 14px;
+            border-radius: 6px;
+            border: none;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1b66c9;
+        }
+
+        .btn-github {
+            background: #333;
+            color: white;
+        }
+
+        .btn-github:hover {
+            background: #222;
+        }
+
+        .divider {
+            text-align: center;
+            position: relative;
+            margin: 20px 0;
+        }
+
+        .divider::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--medium-gray);
+            z-index: 1;
+        }
+
+        .divider span {
+            position: relative;
+            background: white;
+            padding: 0 15px;
+            z-index: 2;
+            color: #5f6368;
+            font-size: 14px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 4rem;
+                margin: 40px 0 30px;
+            }
+
+            .search-container {
+                max-width: 90%;
+            }
+            
+            .features-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 15px;
+            }
+
+            .logo {
+                font-size: 3.2rem;
+                margin: 30px 0 25px;
+            }
+            
+            .search-box {
+                height: 48px;
+                padding: 0 50px;
+            }
+            
+            .search-buttons {
+                flex-direction: column;
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .search-btn {
+                width: 100%;
+            }
+            
+            .feature-card {
+                padding: 20px;
+            }
+            
+            .modal-content {
+                max-width: 90%;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.4s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <a href="#" class="nav-link">n.Mail</a>
+        <a href="#" class="nav-link">n.Images</a>
+        <div class="apps-icon">
+            <i class="fas fa-th"></i>
+        </div>
+        <button class="login-btn" id="login-btn">Sign in</button>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <h1 class="logo">n.<span class="ai">ai</span>.<span class="in">in</span></h1>
+        
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" class="search-box" id="search-input" placeholder="Search the web with AI" autocomplete="off">
+            <i class="fas fa-microphone mic-icon"></i>
+            <i class="fas fa-camera camera-icon"></i>
+        </div>
+        
+        <div class="search-buttons">
+            <button class="search-btn" id="search-btn">n.ai Search</button>
+            <button class="search-btn">I'm Feeling Lucky</button>
+        </div>
+
+        <div class="features-container">
+            <div class="feature-card fade-in" id="maps-card">
+                <div class="feature-icon">
+                    <i class="fas fa-map-marked-alt"></i>
+                </div>
+                <h3 class="feature-title">n.Maps</h3>
+                <p class="feature-desc">Intelligent maps with real-time traffic, directions, and local business info in multiple languages.</p>
+            </div>
+            
+            <div class="feature-card fade-in" id="gmail-card">
+                <div class="feature-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <h3 class="feature-title">n.Mail</h3>
+                <p class="feature-desc">Smart email with AI-powered organization, spam filtering, and quick responses.</p>
+            </div>
+            
+            <div class="feature-card fade-in" id="ai-card">
+                <div class="feature-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h3 class="feature-title">n.AI Assistant</h3>
+                <p class="feature-desc">Your personal AI that understands natural language and helps with tasks.</p>
+            </div>
+            
+            <div class="feature-card fade-in" id="translate-card">
+                <div class="feature-icon">
+                    <i class="fas fa-language"></i>
+                </div>
+                <h3 class="feature-title">n.Translate</h3>
+                <p class="feature-desc">Real-time translation for over 100 languages with voice support.</p>
+            </div>
+        </div>
+
+        <div class="language-container">
+            <div class="language-title">n.ai.in offered in:</div>
+            <div class="language-items">
+                <div class="language-item">हिन्दी</div>
+                <div class="language-item">বাংলা</div>
+                <div class="language-item">தமிழ்</div>
+                <div class="language-item">తెలుగు</div>
+                <div class="language-item">मराठी</div>
+                <div class="language-item">English</div>
+                <div class="language-item">Español</div>
+                <div class="language-item">Français</div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <div class="nav-item active">
+            <i class="fas fa-home nav-icon"></i>
+            <span>Home</span>
+        </div>
+        <div class="nav-item">
+            <i class="fas fa-search nav-icon"></i>
+            <span>Search</span>
+        </div>
+        <div class="nav-item">
+            <i class="fas fa-bolt nav-icon"></i>
+            <span>Activity</span>
+        </div>
+        <div class="nav-item">
+            <i class="fas fa-bell nav-icon"></i>
+            <span>Notifications</span>
+        </div>
+        <div class="nav-item">
+            <i class="fas fa-code nav-icon"></i>
+            <span>Developer</span>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal" id="login-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Sign in to n.ai.in</h3>
+                <button class="close-modal" id="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <label for="email">Email or phone</label>
+                    <input type="text" id="email" placeholder="your@email.com">
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Your password">
+                </div>
+                <div class="login-options">
+                    <button class="btn btn-primary">
+                        <i class="fas fa-user"></i>
+                        Sign in with n.ai.in
+                    </button>
+                    <div class="divider"><span>or</span></div>
+                    <button class="btn btn-github">
+                        <i class="fab fa-github"></i>
+                        Sign in with GitHub
+                    </button>
+                </div>
+                <div style="margin-top: 20px; text-align: center;">
+                    <a href="#" style="color: var(--primary); text-decoration: none; font-size: 14px;">
+                        Create n.ai.in account
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const loginBtn = document.getElementById('login-btn');
+        const closeModal = document.getElementById('close-modal');
+        const loginModal = document.getElementById('login-modal');
+        const searchBtn = document.getElementById('search-btn');
+        const searchInput = document.getElementById('search-input');
+        const navItems = document.querySelectorAll('.nav-item');
+        
+        // Feature cards
+        const mapsCard = document.getElementById('maps-card');
+        const gmailCard = document.getElementById('gmail-card');
+        const aiCard = document.getElementById('ai-card');
+        const translateCard = document.getElementById('translate-card');
+        
+        // Show login modal
+        loginBtn.addEventListener('click', () => {
+            loginModal.style.display = 'flex';
+        });
+        
+        // Close login modal
+        closeModal.addEventListener('click', () => {
+            loginModal.style.display = 'none';
+        });
+        
+     
