@@ -7,12 +7,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         :root {
             --primary: #1a73e8;
             --secondary: #34a853;
@@ -24,6 +18,12 @@
             --border: #dfe1e5;
             --card-shadow: 0 1px 6px rgba(32, 33, 36, 0.1);
             --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
@@ -40,7 +40,33 @@
         header {
             padding: 15px 25px;
             display: flex;
-            justify-content: flex-end;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+
+        .logo-header {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-header .ai {
+            color: var(--secondary);
+        }
+
+        .logo-header .in {
+            color: var(--danger);
+        }
+
+        .header-actions {
+            display: flex;
             align-items: center;
             gap: 20px;
         }
@@ -71,71 +97,41 @@
             background-color: rgba(60, 64, 67, 0.08);
         }
 
-        .login-btn {
-            background-color: var(--primary);
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--accent);
             color: white;
-            border: none;
-            border-radius: 4px;
-            padding: 9px 24px;
-            font-size: 14px;
-            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
             cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .login-btn:hover {
-            background-color: #1b66c9;
-            box-shadow: 0 1px 3px rgba(66, 133, 244, 0.3);
         }
 
         /* Main Content */
         main {
             flex: 1;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             padding: 20px;
-            max-width: 1200px;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+            gap: 30px;
+        }
+
+        .main-content {
+            flex: 1;
+            max-width: 800px;
             margin: 0 auto;
             width: 100%;
         }
 
-        .logo {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 5.5rem;
-            font-weight: 700;
-            margin: 70px 0 40px;
-            color: var(--primary);
-            position: relative;
-        }
-
-        .logo .ai {
-            color: var(--secondary);
-        }
-
-        .logo .in {
-            color: var(--danger);
-        }
-
-        .logo::after {
-            content: "AI";
-            position: absolute;
-            top: -10px;
-            right: -35px;
-            font-size: 1.2rem;
-            background: var(--accent);
-            color: white;
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-weight: 700;
-        }
-
-        /* Search Container */
         .search-container {
             width: 100%;
-            max-width: 700px;
             position: relative;
-            margin-bottom: 30px;
+            margin: 30px 0;
         }
 
         .search-box {
@@ -180,39 +176,126 @@
             right: 20px;
         }
 
-        /* Buttons */
-        .search-buttons {
+        /* Results */
+        .result-stats {
+            color: #70757a;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        .result-item {
+            margin-bottom: 30px;
+            max-width: 650px;
+        }
+
+        .result-url {
+            color: #202124;
+            font-size: 14px;
+            margin-bottom: 4px;
             display: flex;
-            gap: 12px;
+            align-items: center;
+        }
+
+        .result-breadcrumb {
+            color: #5f6368;
+            font-size: 12px;
+            margin-top: 2px;
+        }
+
+        .result-title {
+            color: #1a0dab;
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            text-decoration: none;
+            display: inline-block;
+            transition: var(--transition);
+        }
+
+        .result-title:hover {
+            text-decoration: underline;
+            color: #1a0dab;
+        }
+
+        .result-snippet {
+            color: #4d5156;
+            line-height: 1.5;
+            font-size: 15px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 380px;
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+        }
+
+        .knowledge-panel {
+            background: white;
+            border-radius: 14px;
+            box-shadow: var(--card-shadow);
+            padding: 25px;
             margin-bottom: 30px;
         }
 
-        .search-btn {
-            background-color: var(--light-gray);
-            border: 1px solid transparent;
-            border-radius: 6px;
+        .panel-title {
+            font-size: 24px;
+            margin-bottom: 15px;
             color: var(--dark);
-            font-size: 14px;
-            padding: 12px 24px;
-            cursor: pointer;
-            transition: var(--transition);
-            font-weight: 500;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
         }
 
-        .search-btn:hover {
-            border: 1px solid var(--medium-gray);
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            background-color: #f0f0f0;
+        .panel-content {
+            display: flex;
+            gap: 20px;
+        }
+
+        .panel-image {
+            width: 160px;
+            height: 160px;
+            border-radius: 10px;
+            background: linear-gradient(45deg, var(--secondary), var(--primary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .panel-info {
+            flex: 1;
+        }
+
+        .panel-desc {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .panel-facts {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .fact-item {
+            display: flex;
+            gap: 8px;
+        }
+
+        .fact-label {
+            font-weight: 500;
+            min-width: 80px;
         }
 
         /* Features */
         .features-container {
-            width: 100%;
-            max-width: 800px;
-            margin-top: 40px;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
+            margin-top: 40px;
         }
 
         .feature-card {
@@ -269,37 +352,6 @@
             color: #5f6368;
             font-size: 15px;
             line-height: 1.5;
-        }
-
-        /* Language Selector */
-        .language-container {
-            margin-top: 40px;
-            text-align: center;
-        }
-
-        .language-title {
-            font-size: 15px;
-            color: #5f6368;
-            margin-bottom: 15px;
-        }
-
-        .language-items {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-            max-width: 600px;
-        }
-
-        .language-item {
-            color: var(--primary);
-            font-size: 14px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .language-item:hover {
-            text-decoration: underline;
         }
 
         /* Bottom Navigation */
@@ -480,14 +532,19 @@
         }
 
         /* Responsive Design */
-        @media (max-width: 768px) {
-            .logo {
-                font-size: 4rem;
-                margin: 40px 0 30px;
+        @media (max-width: 1024px) {
+            .sidebar {
+                display: none;
             }
+        }
 
-            .search-container {
-                max-width: 90%;
+        @media (max-width: 768px) {
+            header {
+                padding: 15px;
+            }
+            
+            .logo-header {
+                font-size: 1.5rem;
             }
             
             .features-container {
@@ -496,32 +553,13 @@
         }
 
         @media (max-width: 480px) {
-            header {
-                padding: 15px;
-            }
-
-            .logo {
-                font-size: 3.2rem;
-                margin: 30px 0 25px;
+            .header-actions .nav-link {
+                display: none;
             }
             
             .search-box {
                 height: 48px;
                 padding: 0 50px;
-            }
-            
-            .search-buttons {
-                flex-direction: column;
-                width: 100%;
-                max-width: 300px;
-            }
-            
-            .search-btn {
-                width: 100%;
-            }
-            
-            .feature-card {
-                padding: 20px;
             }
             
             .modal-content {
@@ -543,162 +581,111 @@
 <body>
     <!-- Header -->
     <header>
-        <a href="#" class="nav-link">n.Mail</a>
-        <a href="#" class="nav-link">n.Images</a>
-        <div class="apps-icon">
-            <i class="fas fa-th"></i>
+        <div class="logo-header">
+            n.<span class="ai">ai</span>.<span class="in">in</span>
         </div>
-        <button class="login-btn" id="login-btn">Sign in</button>
+        <div class="header-actions">
+            <a href="#" class="nav-link">n.Mail</a>
+            <a href="#" class="nav-link">n.Maps</a>
+            <a href="#" class="nav-link">n.Images</a>
+            <div class="apps-icon">
+                <i class="fas fa-th"></i>
+            </div>
+            <div class="user-avatar" id="user-avatar">U</div>
+        </div>
     </header>
 
     <!-- Main Content -->
     <main>
-        <h1 class="logo">n.<span class="ai">ai</span>.<span class="in">in</span></h1>
-        
-        <div class="search-container">
-            <i class="fas fa-search search-icon"></i>
-            <input type="text" class="search-box" id="search-input" placeholder="Search the web with AI" autocomplete="off">
-            <i class="fas fa-microphone mic-icon"></i>
-            <i class="fas fa-camera camera-icon"></i>
-        </div>
-        
-        <div class="search-buttons">
-            <button class="search-btn" id="search-btn">n.ai Search</button>
-            <button class="search-btn">I'm Feeling Lucky</button>
-        </div>
-
-        <div class="features-container">
-            <div class="feature-card fade-in" id="maps-card">
-                <div class="feature-icon">
-                    <i class="fas fa-map-marked-alt"></i>
-                </div>
-                <h3 class="feature-title">n.Maps</h3>
-                <p class="feature-desc">Intelligent maps with real-time traffic, directions, and local business info in multiple languages.</p>
+        <div class="main-content">
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-box" id="search-input" placeholder="Search the web with AI" value="artificial intelligence" autocomplete="off">
+                <i class="fas fa-microphone mic-icon"></i>
+                <i class="fas fa-camera camera-icon"></i>
             </div>
             
-            <div class="feature-card fade-in" id="gmail-card">
-                <div class="feature-icon">
-                    <i class="fas fa-envelope"></i>
+            <div class="result-stats">About 1,340,000,000 results (0.18 seconds)</div>
+
+            <div class="result-item fade-in">
+                <div class="result-url">
+                    <span>https://en.wikipedia.org › wiki › Artificial_intelligence</span>
                 </div>
-                <h3 class="feature-title">n.Mail</h3>
-                <p class="feature-desc">Smart email with AI-powered organization, spam filtering, and quick responses.</p>
+                <div class="result-breadcrumb">Science › Computer science</div>
+                <a href="#" class="result-title">Artificial intelligence - Wikipedia</a>
+                <p class="result-snippet">Artificial intelligence (AI) is intelligence demonstrated by machines, as opposed to natural intelligence displayed by animals including humans.</p>
             </div>
-            
-            <div class="feature-card fade-in" id="ai-card">
-                <div class="feature-icon">
-                    <i class="fas fa-robot"></i>
+
+            <div class="result-item fade-in">
+                <div class="result-url">
+                    <span>https://www.ibm.com › topics › artificial-intelligence</span>
                 </div>
-                <h3 class="feature-title">n.AI Assistant</h3>
-                <p class="feature-desc">Your personal AI that understands natural language and helps with tasks.</p>
+                <div class="result-breadcrumb">Cloud Computing › Artificial Intelligence</div>
+                <a href="#" class="result-title">What is Artificial Intelligence (AI)? | IBM</a>
+                <p class="result-snippet">Artificial intelligence leverages computers and machines to mimic the problem-solving and decision-making capabilities of the human mind.</p>
             </div>
-            
-            <div class="feature-card fade-in" id="translate-card">
-                <div class="feature-icon">
-                    <i class="fas fa-language"></i>
+
+            <div class="result-item fade-in">
+                <div class="result-url">
+                    <span>https://www.techtarget.com › searchenterpriseai › definition</span>
                 </div>
-                <h3 class="feature-title">n.Translate</h3>
-                <p class="feature-desc">Real-time translation for over 100 languages with voice support.</p>
+                <div class="result-breadcrumb">Enterprise AI › Artificial Intelligence</div>
+                <a href="#" class="result-title">What is Artificial Intelligence and How Does AI Work? | TechTarget</a>
+                <p class="result-snippet">Artificial intelligence (AI) is the simulation of human intelligence processes by machines, especially computer systems.</p>
+            </div>
+
+            <div class="result-item fade-in">
+                <div class="result-url">
+                    <span>https://www.britannica.com › technology › artificial-intelligence</span>
+                </div>
+                <div class="result-breadcrumb">Technology › Computers</div>
+                <a href="#" class="result-title">Artificial intelligence (AI) | Definition, Examples, Types ...</a>
+                <p class="result-snippet">Artificial intelligence (AI), the ability of a digital computer or computer-controlled robot to perform tasks commonly associated with intelligent beings.</p>
+            </div>
+
+            <div class="features-container">
+                <div class="feature-card fade-in" id="maps-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <h3 class="feature-title">n.Maps</h3>
+                    <p class="feature-desc">Intelligent maps with real-time traffic, directions, and local business info in multiple languages.</p>
+                </div>
+                
+                <div class="feature-card fade-in" id="gmail-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3 class="feature-title">n.Mail</h3>
+                    <p class="feature-desc">Smart email with AI-powered organization, spam filtering, and quick responses.</p>
+                </div>
+                
+                <div class="feature-card fade-in" id="ai-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3 class="feature-title">n.AI Assistant</h3>
+                    <p class="feature-desc">Your personal AI that understands natural language and helps with tasks.</p>
+                </div>
+                
+                <div class="feature-card fade-in" id="translate-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-language"></i>
+                    </div>
+                    <h3 class="feature-title">n.Translate</h3>
+                    <p class="feature-desc">Real-time translation for over 100 languages with voice support.</p>
+                </div>
             </div>
         </div>
 
-        <div class="language-container">
-            <div class="language-title">n.ai.in offered in:</div>
-            <div class="language-items">
-                <div class="language-item">हिन्दी</div>
-                <div class="language-item">বাংলা</div>
-                <div class="language-item">தமிழ்</div>
-                <div class="language-item">తెలుగు</div>
-                <div class="language-item">मराठी</div>
-                <div class="language-item">English</div>
-                <div class="language-item">Español</div>
-                <div class="language-item">Français</div>
-            </div>
-        </div>
-    </main>
-
-    <!-- Bottom Navigation -->
-    <div class="bottom-nav">
-        <div class="nav-item active">
-            <i class="fas fa-home nav-icon"></i>
-            <span>Home</span>
-        </div>
-        <div class="nav-item">
-            <i class="fas fa-search nav-icon"></i>
-            <span>Search</span>
-        </div>
-        <div class="nav-item">
-            <i class="fas fa-bolt nav-icon"></i>
-            <span>Activity</span>
-        </div>
-        <div class="nav-item">
-            <i class="fas fa-bell nav-icon"></i>
-            <span>Notifications</span>
-        </div>
-        <div class="nav-item">
-            <i class="fas fa-code nav-icon"></i>
-            <span>Developer</span>
-        </div>
-    </div>
-
-    <!-- Login Modal -->
-    <div class="modal" id="login-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">Sign in to n.ai.in</h3>
-                <button class="close-modal" id="close-modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="input-group">
-                    <label for="email">Email or phone</label>
-                    <input type="text" id="email" placeholder="your@email.com">
-                </div>
-                <div class="input-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" placeholder="Your password">
-                </div>
-                <div class="login-options">
-                    <button class="btn btn-primary">
-                        <i class="fas fa-user"></i>
-                        Sign in with n.ai.in
-                    </button>
-                    <div class="divider"><span>or</span></div>
-                    <button class="btn btn-github">
-                        <i class="fab fa-github"></i>
-                        Sign in with GitHub
-                    </button>
-                </div>
-                <div style="margin-top: 20px; text-align: center;">
-                    <a href="#" style="color: var(--primary); text-decoration: none; font-size: 14px;">
-                        Create n.ai.in account
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // DOM Elements
-        const loginBtn = document.getElementById('login-btn');
-        const closeModal = document.getElementById('close-modal');
-        const loginModal = document.getElementById('login-modal');
-        const searchBtn = document.getElementById('search-btn');
-        const searchInput = document.getElementById('search-input');
-        const navItems = document.querySelectorAll('.nav-item');
-        
-        // Feature cards
-        const mapsCard = document.getElementById('maps-card');
-        const gmailCard = document.getElementById('gmail-card');
-        const aiCard = document.getElementById('ai-card');
-        const translateCard = document.getElementById('translate-card');
-        
-        // Show login modal
-        loginBtn.addEventListener('click', () => {
-            loginModal.style.display = 'flex';
-        });
-        
-        // Close login modal
-        closeModal.addEventListener('click', () => {
-            loginModal.style.display = 'none';
-        });
-        
-     
+        <div class="sidebar">
+            <div class="knowledge-panel fade-in">
+                <div class="panel-title">Artificial Intelligence</div>
+                <div class="panel-content">
+                    <div class="panel-image">AI</div>
+                    <div class="panel-info">
+                        <p class="panel-desc">Artificial intelligence (AI) is intelligence demonstrated by machines, as opposed to natural intelligence displayed by animals including humans.</p>
+                        <div class="panel-facts">
+                            <div class="fact-item">
+                                <span class="fact-label">Field:</span>
+              
